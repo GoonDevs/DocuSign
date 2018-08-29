@@ -20,11 +20,7 @@ public class DocuSign {
 		doc.sendEnvelope("tmoraes@gocn.com.br", "taiwan");
 	}
 	
-	/* DocuSign Rest API webservice class to send an envelope. 
-
-	* Created for Demo Purpose. 
-
-	* */ 
+	
 
 	public String sendEnvelope(String email, String name) throws UnsupportedEncodingException{ 
 
