@@ -1,5 +1,7 @@
 package com.docusign.api.send;
 import java.io.IOException;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,6 +81,24 @@ public class DocuSignExample {
 	}
 	public String SendEnvelope(Connection connection, List<eSigner> eSignerList, String pathToDoc) throws IOException
 	{
+		System.setProperty("http.proxyHost", "web.prod.proxy.cargill.com");
+		System.setProperty("http.proxyPort", "4200");
+		System.setProperty("https.proxyHost", "web.prod.proxy.cargill.com");
+		System.setProperty("https.proxyPort", "4200");
+		
+		final String authUser = "T509288";
+		final String authPassword = "Cargil1807";
+		Authenticator.setDefault(
+		   new Authenticator() {
+		      @Override
+		      public PasswordAuthentication getPasswordAuthentication() {
+		         return new PasswordAuthentication(
+		               authUser, authPassword.toCharArray());
+		      }
+		   }
+		);
+		System.setProperty("http.proxyUser", authUser);
+		System.setProperty("http.proxyPassword", authPassword);	
 
 		String oAuthBaseUrl = connection.getoAuthBaseUrl();
 		String baseUrl = connection.getBaseUrl();
